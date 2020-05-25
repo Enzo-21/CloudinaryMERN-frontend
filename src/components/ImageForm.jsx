@@ -36,6 +36,10 @@ export default class ImageForm extends Component {
 
             })
         this.getImageData();
+        this.setState({
+            image: null
+        })
+        document.getElementById("upload-image-form").reset()
         
     }
 
@@ -64,23 +68,33 @@ export default class ImageForm extends Component {
                 <div className="col-md-4">
                     <div className="card">
                         <div className="card-body">
-                            <form onSubmit={this.addImage} encType="multipart/form-data">
+                            <form id='upload-image-form' onSubmit={this.addImage} encType="multipart/form-data">
                                 <div className="form-group">
-                                    <input onChange={this.onChangeInput} className="form-control" placeholder="Titulo" type="text" name="title"></input>
+                                    <input onChange={this.onChangeInput} className="form-control" placeholder="Title" type="text" name="title"></input>
                                 </div>
 
                                 <div className="form-group">
-                                    <textarea onChange={this.onChangeInput} className="form-control" name="description" placeholder="Descripcion"></textarea>
+                                    <textarea onChange={this.onChangeInput} className="form-control" name="description" placeholder="Description"></textarea>
                                 </div>
 
                                 <div className="input-group">
                                     <div className="custom-file">
                                         <input onChange={this.fileSelectedHandler} type="file" name="image" className="custom-file-input" id="inputGroupFile01" />
                                     </div>
-                                    <label htmlFor="inputGroupFile01" className="custom-file-label">Seleccionar</label>
-                                </div>
+                                    
+                                    <label htmlFor="inputGroupFile01" className="custom-file-label">Select file</label> </div>
 
-                                <button className="btn btn-primary" type='submit'>Subir foto</button>
+                                {(!this.state.image) ? (
+                                '') : (
+                                    <p>Selected file: {this.state.image.name}</p>
+                                ) }
+
+                                
+                                {(this.state.image) ? (
+                                    <button className="btn btn-primary" type='submit'>Upload photo</button>
+                                ) : null}
+
+                                
                             </form>
                         </div>
                     </div>
